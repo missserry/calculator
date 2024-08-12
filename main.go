@@ -9,11 +9,11 @@ import (
 )
 
 func main() {
-	
+
 	var spliterinput []string
-    
+
 	fmt.Print("Введи операнды и оператор (например, 5 + 3 или V + II): ")
-	
+
 	scanner := bufio.NewScanner(os.Stdin)
     scanner.Scan()
     input := scanner.Text()
@@ -41,6 +41,11 @@ func main() {
 	operand1INT, isRoman1, err1 := toint(operand1)
 	operand2INT, isRoman2, err2 := toint(operand2)
 
+	if isRoman1 != isRoman2{
+		fmt.Println("Разные системы исчисления")
+		return
+	}
+	
 	if err1 != nil {
 		fmt.Println("Ошибка в первом операнде:", err1)
 		return
@@ -57,10 +62,17 @@ func main() {
 		fmt.Println("Ошибка: Второе число больше 10")
 		return
 	}
-	if isRoman1 != isRoman2{
-		fmt.Println("Разные системы исчисления")
+
+	if operand1INT <= 0 {
+		fmt.Println("Ошибка: Первое число равно 0 или меньше")
 		return
 	}
+	
+	if operand2INT <= 0 {
+		fmt.Println("Ошибка: Второе число равно 0 или меньше")
+		return
+	}
+
 
 	result := calculate(operand1INT, operand2INT, operator)
 	if isRoman1 {
